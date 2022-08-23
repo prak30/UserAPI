@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class UserController {
 	}
 
 	@PostMapping("/users")
-	public ResponseEntity<Response> addUser(@RequestBody UserDto userDto) {
+	public ResponseEntity<Response> addUser(@Valid @RequestBody UserDto userDto) {
 		Response response = userService.addUser(userDto);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 
