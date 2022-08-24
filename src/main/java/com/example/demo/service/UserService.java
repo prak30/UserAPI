@@ -11,6 +11,7 @@ import com.example.demo.dto.UserDto;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.utility.Response;
+import com.example.demo.utility.UserException;
 
 @Service
 public class UserService {
@@ -33,6 +34,10 @@ public class UserService {
 	
 	public Response addUser(UserDto userDto) {
 		User user = modelMapper.map(userDto, User.class);
+		User u1 = userRepository.findByEmail(userDto.getEmail());
+		if(u1 != null) {
+			throw new UserException("user all ready present");
+		}
 		userRepository.save(user);
 		System.out.println(user.toString());
 			return new Response("New User added successfully", 200, user);
